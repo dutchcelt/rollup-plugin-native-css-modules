@@ -40,7 +40,6 @@ export default function css(options = {}) {
         const ast = this.parse(code);
         const magicString = new MagicString(code);
         let modifiedCode = false;
-
         await asyncWalk(ast, {
           enter: async node => {
             if (
@@ -68,12 +67,11 @@ ${code.substring(node.start, node.end)}
               }
 
               if(
-                node.source.type !== 'Literal' &&
-                node.source.type !== 'TemplateLiteral'
+                node.source?.type !== 'Literal' &&
+                node.source?.type !== 'TemplateLiteral'
               ) {
                 return;
               }
-
               const moduleSpecifier = /** @type {string} */ (node.source.value || node.source.quasis[0].value.raw);
 
               /** Ignore external css files or data URIs */
@@ -88,7 +86,7 @@ ${code.substring(node.start, node.end)}
 
               /** If we havent processed this file before */
               if (!cssFilesMap[absolutePathToCssModule]) {
-                const cssModuleContentsBuffer = await fs.readFile(absolutePathToCssModule);
+                  const cssModuleContentsBuffer = await fs.readFile(absolutePathToCssModule);
                 const cssModuleContents = await cssModuleContentsBuffer.toString();
 
                 const assetSource = options?.transform

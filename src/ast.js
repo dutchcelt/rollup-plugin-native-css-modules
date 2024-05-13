@@ -20,14 +20,13 @@ export function isStaticCssImport(node) {
  * @returns {boolean}
  */
 export function isDynamicCssImport(node) {
-	//console.log(node.type);
-
 	return (
-		node.type === 'ImportExpression' &&
-		node.attributes?.[0]?.properties?.[0]?.key?.name === 'with' &&
-		node.attributes?.[0]?.properties?.[0]?.value?.properties?.[0]?.key.name === 'type' &&
-		node.attributes?.[0]?.properties?.[0]?.value?.properties?.[0]?.value?.value === 'css'
-	);
+		node.type === 'ImportExpression'
+			&& node.properties?.[0]?.key?.name === 'with'
+			&& node.properties?.[0]?.value?.properties?.[0]?.key?.name === 'type'
+			&& node.properties?.[0]?.value?.properties?.[0]?.value?.value === 'css'
+
+);
 }
 
 /**
@@ -36,9 +35,8 @@ export function isDynamicCssImport(node) {
  * @returns {boolean}
  */
 export function isTemplateStringWithVariables(node) {
-	console.log(node.source);
 	return (
-		node.source.type === 'Literal' && node.source?.quasis?.length > 1
+		node.type === 'TemplateLiteral' && node.quasis?.length > 1
 	)
 }
 
@@ -48,5 +46,5 @@ export function isTemplateStringWithVariables(node) {
  * @returns {boolean}
  */
 export function isBinaryExpression(node) {
-	return node.source.type === 'BinaryExpression';
+	return node.source?.type === 'BinaryExpression';
 }
