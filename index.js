@@ -49,11 +49,11 @@ export default function css(options = {}) {
             ) {
               if(
                 /**
-                 * @example `import(`./foo-${i}.css`, { assert: { type: 'css'} })`
+                 * @example `import(`./foo-${i}.css`, { with: { type: 'css'} })`
                  */
                 isTemplateStringWithVariables(node) ||
                 /**
-                 * @example `import('./foo-' + i + '.css', { assert: { type: 'css'} })`
+                 * @example `import('./foo-' + i + '.css', { with: { type: 'css'} })`
                  */
                 isBinaryExpression(node)
               ) {

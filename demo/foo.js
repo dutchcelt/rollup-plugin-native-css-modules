@@ -1,4 +1,4 @@
-import styleSheet from './styles.css' assert { type: 'css' };
+import styleSheet from './styles.css' with { type: 'css' };
 
 console.log(styleSheet);
 

@@ -1,50 +1,52 @@
 /**
- * @example import styles from './styles.css' assert { type: 'css' };
+ * @example import styles from './styles.css' with { type: 'css' };
  * @param {import('estree-walker').Node} node
  * @returns {boolean}
  */
 export function isStaticCssImport(node) {
-  return (
-    node.type === 'ImportDeclaration' &&
-    node.assertions?.length &&
-    node.assertions.some(assertion => (
-      assertion.key.name === 'type' &&
-      assertion.value.value === 'css'
-    ))
-  )
+	return (
+		node.type === 'ImportDeclaration' &&
+		node.attributes?.length &&
+		node.attributes.some(
+			attributes =>
+				attributes.key.name === 'type' && attributes.value.value === 'css',
+		)
+	);
 }
 
 /**
- * @example import('./styles.css', {assert: { type: 'css' }});
+ * @example import('./styles.css', {with: { type: 'css' }});
  * @param {import('estree-walker').Node} node
  * @returns {boolean}
  */
 export function isDynamicCssImport(node) {
-  return (
-    node.type === 'ImportExpression' &&
-    node.arguments?.[0]?.properties?.[0]?.key?.name === 'assert' &&
-    node.arguments?.[0]?.properties?.[0]?.value?.properties?.[0]?.key.name === 'type' &&
-    node.arguments?.[0]?.properties?.[0]?.value?.properties?.[0]?.value?.value === 'css'
-  )
+	//console.log(node.type);
+
+	return (
+		node.type === 'ImportExpression' &&
+		node.attributes?.[0]?.properties?.[0]?.key?.name === 'with' &&
+		node.attributes?.[0]?.properties?.[0]?.value?.properties?.[0]?.key.name === 'type' &&
+		node.attributes?.[0]?.properties?.[0]?.value?.properties?.[0]?.value?.value === 'css'
+	);
 }
 
 /**
- * @example import(`./foo-${i}.css`, { assert: { type: 'css'} })
+ * @example import(`./foo-${i}.css`, { with: { type: 'css'} })
  * @param {import('estree-walker').Node} node
  * @returns {boolean}
  */
 export function isTemplateStringWithVariables(node) {
-  return (
-    node.source.type === 'TemplateLiteral' &&
-    node.source?.quasis?.length > 1
-  )
+	console.log(node.source);
+	return (
+		node.source.type === 'Literal' && node.source?.quasis?.length > 1
+	)
 }
 
 /**
- * @example import('./foo-' + i + '.css', { assert: { type: 'css'} })
+ * @example import('./foo-' + i + '.css', { with: { type: 'css'} })
  * @param {import('estree-walker').Node} node
  * @returns {boolean}
  */
 export function isBinaryExpression(node) {
-  return node.source.type === 'BinaryExpression';
+	return node.source.type === 'BinaryExpression';
 }

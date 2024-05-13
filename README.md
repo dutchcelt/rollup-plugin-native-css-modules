@@ -14,14 +14,14 @@ Or take a look at the [example project](https://github.com/thepassle/css-example
 
 `src/index.js`:
 ```js
-import styles from './styles.css' assert { type: 'css' };
+import styles from './styles.css' with { type: 'css' };
 ```
 
 ### Output:
 
 `dist/index.js`:
 ```js
-import styles from './styles-3275f665.css' assert { type: 'css' };
+import styles from './styles-3275f665.css' with { type: 'css' };
 ```
 
 ## Usage
@@ -63,23 +63,23 @@ At time of writing Rollup V3 supports import assertion syntax, however, Rollup w
 This plugin supports:
 
 ```js
-import styles from './styles.css' assert { type: 'css' };
-import styles from 'bare-module-specifier/styles.css' assert { type: 'css' };
-import('./styles.css', { assert: { type: 'css'} });
+import styles from './styles.css' with { type: 'css' };
+import styles from 'bare-module-specifier/styles.css' with { type: 'css' };
+import('./styles.css', { with: { type: 'css'} });
 ```
 
 This plugin does NOT support:
 ```js
-import(`./styles-${i}.css`, { assert: { type: 'css'} });
-import('./styles-' + i + '.css', { assert: { type: 'css'} });
+import(`./styles-${i}.css`, { with: { type: 'css'} });
+import('./styles-' + i + '.css', { with: { type: 'css'} });
 ```
 
 The reason for this is that imports with dynamic variables are hard to statically analyze, because they rely on runtime code.
 
 External stylesheets are ignored:
 ```js
-import styles from 'http://styles.com/index.css' assert { type: 'css' };
-import styles from 'https://styles.com/index.css' assert { type: 'css' };
+import styles from 'http://styles.com/index.css' with { type: 'css' };
+import styles from 'https://styles.com/index.css' with { type: 'css' };
 ```
 
 Data uri's are also ignored.
@@ -94,12 +94,12 @@ CSS modules output by this plugin receive a hash based on the contents of the CS
 
 **input:**
 ```js
-import styles from './styles.css' assert { type: 'css' };
+import styles from './styles.css' with { type: 'css' };
 ```
 
 **output:**
 ```js
-import styles from './styles-3275f665.css' assert { type: 'css' };
+import styles from './styles-3275f665.css' with { type: 'css' };
 ```
 
 ### Transform
